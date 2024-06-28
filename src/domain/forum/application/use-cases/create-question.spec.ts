@@ -1,7 +1,7 @@
 import { expect } from "vitest";
 import { CreateQuestionUseCase } from "./create-question";
 
-import { beforeEach, describe, it } from "node:test";
+import { beforeEach, describe, it } from "vitest";
 import { InMemoryQuestionRepository } from "../../../../../test/repositories/in-memory-questions-repository";
 
 let inMemoryQuestionRepository: InMemoryQuestionRepository;
@@ -16,9 +16,10 @@ describe("Create Question", () => {
   it("create a question", async () => {
     const { question } = await sut.execute({
       content: "New",
-      authorId: "1234",
+      authorId: "1",
       title: "test",
     });
+
 
     expect(question.id).toBeTruthy();
   });
