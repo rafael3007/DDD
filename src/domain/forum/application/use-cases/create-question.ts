@@ -25,6 +25,8 @@ export class CreateQuestionUseCase {
       title,
     });
 
+    await this.questionRepository.create(question)
+
     return {
         question
     }
