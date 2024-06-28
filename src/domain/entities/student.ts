@@ -17,4 +17,9 @@ export class Student extends Entity<StudentProps> {
 
     return student;
   }
+
+  get nome(){
+    return this.props.nome
+  }
+  
 }

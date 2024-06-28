@@ -11,4 +11,9 @@ export class Instructor extends Entity<InstructorProps> {
 
     return instructor;
   }
+
+  get nome() {
+    return this.props.nome;
+  }
+
 }
