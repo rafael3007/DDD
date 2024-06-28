@@ -1,29 +1,32 @@
 export class Slug {
+  public value: string;
 
-    public value: string
+  private constructor(value: string) {
+    this.value = value;
+  }
 
-    constructor(value: string) {
-        this.value = value
-    }
-/**
- * Receives a string and normalize it as a slug
- * 
- * Example: "an Example title" => "an-example-title"
- *  
- * 
- * @param text {string}
- */
-    static createFromText(text: string) {
-        const slugText = text
-        .normalize("NFKD")
-        .toLocaleLowerCase()
-        .trim()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w-]+/g, "")
-        .replace(/_/g, "-")
-        .replace(/--+/g, "-")
-        .replace(/-$/, "")
+  static create(slug: string) {
+    return new Slug(slug);
+  }
+  /**
+   * Receives a string and normalize it as a slug
+   *
+   * Example: "an Example title" => "an-example-title"
+   *
+   *
+   * @param text {string}
+   */
+  static createFromText(text: string) {
+    const slugText = text
+      .normalize("NFKD")
+      .toLocaleLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/_/g, "-")
+      .replace(/--+/g, "-")
+      .replace(/-$/, "");
 
-        return new Slug(slugText)
-    }
+    return new Slug(slugText);
+  }
 }
