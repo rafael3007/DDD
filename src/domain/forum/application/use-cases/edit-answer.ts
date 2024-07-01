@@ -1,3 +1,4 @@
+import { Answer } from "../../enterprise/entities/answer";
 import { AnswerRepository } from "../repositories/answers-repository";
 
 interface EditAnswerUseCaseRequest {
@@ -6,7 +7,9 @@ interface EditAnswerUseCaseRequest {
   content: string;
 }
 
-interface EditAnswerUseCaseResponse {}
+interface EditAnswerUseCaseResponse {
+  answer: Answer
+}
 
 export class EditAnswerUseCase {
 
@@ -31,6 +34,8 @@ export class EditAnswerUseCase {
   
     await this.answerRepository.save(answer);
 
-    return {}
+    return {
+      answer
+    }
   }
 }
