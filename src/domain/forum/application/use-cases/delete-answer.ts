@@ -1,27 +1,32 @@
-// import { Question } from "../../enterprise/entities/question";
-// import { QuestionRepository } from "../repositories/questions-repository";
+import { Answer } from "../../enterprise/entities/answer";
+import { AnswerRepository } from "../repositories/answers-repository";
 
-// interface DeleteQuestionUseCaseRequest {
-//   questionId: string;
-// }
+interface DeleteAnswerUseCaseRequest {
+  answerId: string;
+  authorId: string;
+}
 
-// interface DeleteQuestionUseCaseResponse {}
+interface DeleteAnswerUseCaseResponse {}
 
-// export class DeleteQuestionUseCase {
+export class DeleteAnswerUseCase {
+  constructor(private answerRepository: AnswerRepository) {}
 
-//   constructor(private questionRepository: QuestionRepository) {}
-  
-//   async execute({
-//     questionId,
-//   }: DeleteQuestionUseCaseRequest): Promise<DeleteQuestionUseCaseResponse> {
-//     const question = await this.questionRepository.findById(questionId);
+  async execute({
+    answerId,
+    authorId,
+  }: DeleteAnswerUseCaseRequest): Promise<DeleteAnswerUseCaseResponse> {
+    const answer = await this.answerRepository.findById(answerId);
 
-//     if (!question) {
-//       throw new Error("Question not found.");
-//     }
+    if (!answer) {
+      throw new Error("Answer not found.");
+    }
 
-//     await this.questionRepository.delete(question);
+    if (authorId !== answer.authorId.toString()) {
+      throw new Error("Not allowed.");
+    }
 
-//     return {}
-//   }
-// }
+    await this.answerRepository.delete(answer);
+
+    return {};
+  }
+}
