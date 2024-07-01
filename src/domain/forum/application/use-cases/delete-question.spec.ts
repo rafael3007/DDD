@@ -14,18 +14,36 @@ describe("Delete Question", () => {
   });
 
   it("should be able to delete question", async () => {
-    const newQuestion = makeQuestion({}, new UniqueEntityID("question-1"));
+    const newQuestion = makeQuestion({
+      authorId: new UniqueEntityID("author-1")
+    }, new UniqueEntityID("question-1"));
 
     await inMemoryQuestionsRepository.create(newQuestion);
 
-    console.log(inMemoryQuestionsRepository.items);
 
     await sut.execute({
       questionId: "question-1",
+      authorId: "author-1"
     });
 
-    console.log(inMemoryQuestionsRepository.items);
 
     expect(inMemoryQuestionsRepository.items).toHaveLength(0);
+  });
+
+
+  it("should not be able to delete question from another user", async () => {
+    const newQuestion = makeQuestion({
+      authorId: new UniqueEntityID("author-1")
+    }, new UniqueEntityID("question-1"));
+
+    await inMemoryQuestionsRepository.create(newQuestion);
+
+    expect(()=>{
+      return sut.execute({
+        questionId: "question-1",
+        authorId: "author-2"
+      })
+    }).rejects.toBeInstanceOf(Error)
+
   });
 });
