@@ -34,6 +34,7 @@ describe("Comment on question", () => {
     expect(inMemoryQuestionCommentRepository.items[0].content).toEqual(
       "comentário teste"
     );
+    
   });
 
 });
