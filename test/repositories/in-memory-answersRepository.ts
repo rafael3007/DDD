@@ -1,8 +1,9 @@
-import { PaginationParams } from "../../src/domain/core/repositories/pagination-params";
+import { PaginationParams } from "../../src/domain/core/repositories/pagination-params"; 
 import { AnswerRepository } from "../../src/domain/forum/application/repositories/answers-repository";
 import { Answer } from "../../src/domain/forum/enterprise/entities/answer";
 
 export class InMemoryAnswerRepository implements AnswerRepository {
+
   async findById(id: string) {
     const answer = this.items.find((item) => id === item.id.toString());
 
