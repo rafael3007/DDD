@@ -30,3 +30,4 @@ export class InMemoryAnswerCommentRepository
     this.items.splice(itemIndex, 1);
   }
 }
+
